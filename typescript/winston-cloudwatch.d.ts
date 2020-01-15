@@ -11,43 +11,42 @@ declare class WinstonCloudwatch extends TransportStream {
     streamName: string,
     logEvents: any[],
     retentionInDays: number,
-    cb: ((err: Error, data: any) => void)
+    cb: (err: Error, data: any) => void
   ): void;
   getToken(
     aws: CloudWatchLogs,
     groupName: string,
     streamName: string,
     retentionInDays: number,
-    cb: ((err: Error, data: string) => void)
+    cb: (err: Error, data: string) => void
   ): void;
   ensureGroupPresent(
     aws: CloudWatchLogs,
     name: string,
     retentionInDays: number,
-    cb: ((err: Error, data: boolean) => void)
+    cb: (err: Error, data: boolean) => void
   ): void;
   getStream(
     aws: CloudWatchLogs,
     groupName: string,
     streamName: string,
-    cb: ((
+    cb: (
       err: Error,
       data: CloudWatchLogs.Types.DescribeLogStreamsResponse
-    ) => void)
+    ) => void
   ): void;
-  ignoreInProgress(cb: ((err: Error) => void)): void;
-  constructor (options?: WinstonCloudwatch.CloudwatchTransportOptions);
+  ignoreInProgress(cb: (err: Error) => void): void;
+  constructor(options?: WinstonCloudwatch.CloudwatchTransportOptions);
 }
 // Export the default winston cloudwatch class
 export = WinstonCloudwatch;
 
 // Declare optional exports
 declare namespace WinstonCloudwatch {
-
-  export type LogObject = { level: string; msg: string; meta?: any };
+  export type LogObject = { level: string; message: string; meta?: any };
 
   export interface CloudwatchTransportOptions {
-    cloudWatchLogs?: CloudWatchLogs,
+    cloudWatchLogs?: CloudWatchLogs;
     level?: string;
     logGroupName?: string | (() => string);
     logStreamName?: string | (() => string);
@@ -59,7 +58,7 @@ declare namespace WinstonCloudwatch {
     messageFormatter?: (logObject: LogObject) => string;
     proxyServer?: string;
     uploadRate?: number;
-    errorHandler?: ((err: Error) => void);
+    errorHandler?: (err: Error) => void;
     silent?: boolean;
     retentionInDays?: number;
   }
